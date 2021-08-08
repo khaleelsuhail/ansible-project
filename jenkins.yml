@@ -1,0 +1,8 @@
+---
+- name: play 1- Configure Apache for httpd
+  hosts: webservers
+  become: yes
+  gather_facts: True
+  roles:
+    - jenkins
+

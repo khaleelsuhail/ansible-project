@@ -1,0 +1,9 @@
+#- name: selinux enable
+#  ansible.builtin.command: chcon -Rt httpd_sys_content_t  /var/www/html/xyz-com
+
+- name: Start and Enable http service
+  service:
+    name: httpd 
+    state: started
+    enabled: yes
+

@@ -1,0 +1,33 @@
+#  vars:
+#    java_apt: openjdk-8-jdk
+#    java_yum: java-1.8*
+#  download_url: https://downloads.apache.org/tomcat/tomcat-8/v8.5.69/bin/apache-tomcat-8.5.69.tar.gz
+#  tomcat: apache-tomcat-8.5.69
+ 
+#- name: To install java as its mandatory dependency
+#  apt:
+#    name: "{{ java_apt }}"
+#    state: present
+#    when: (ansible_distribution == "Ubuntu" and ansible_distribution_major_version == "18")
+
+- name: To install dependency
+  yum:
+    name: "{{ java_yum }}"
+    state: installed
+    #    when:
+    #  ansible_distribution == "RedHat"
+- name: To download apache tomcat
+  get_url: 
+    url: "{{ download_url }}" 
+    mode: 0755
+    dest: /etc/{{ tomcat }}.tar.gz
+    backup: yes
+    timeout: 20
+
+- name: To untar and unzip the package
+  unarchive:
+    src: /etc/{{ tomcat }}.tar.gz
+    dest: /opt/
+    mode: 0755
+    remote_src: yes
+

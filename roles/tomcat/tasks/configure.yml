@@ -1,0 +1,21 @@
+#- name: to fetch the tomcat-users.xml file from remote servers
+#  fetch:
+#    src: "/opt/{{ tomcat }}/conf/tomcat-users.xml"
+#    dest: /etc/ansible/roles/tomcat/files/
+#
+#- name: to fetch the context.xml file from remote servers
+#  fetch:
+#    src: "/opt/{{ tomcat }}/webapps/manager/META-INF/context.xml"
+#   dest: /etc/ansible/roles/tomcat/files/
+
+
+- name: To update the tomcat-users
+  copy:
+    src: files/tomcat-users.xml
+    dest: /etc/{{ tomcat}}/conf/tomcat-users.xml
+
+- name: update manager- context.xml
+  copy:
+    src: files/context.xml
+    dest: /etc/{{ tomcat }}/webapps/manager/META-INF/context.xml
+

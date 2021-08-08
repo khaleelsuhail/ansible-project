@@ -1,0 +1,30 @@
+---
+- name: play 1- Configure Apache for httpd
+  hosts: webservers
+  become: yes
+  roles:
+    - apache
+
+- name: play 2 - Configure Apache for httpd
+  hosts: webservers
+  become: yes
+  tasks:
+    - name: Remove file (delete file)
+      file:
+        path: /etc/httpd/conf.d/virtual.conf
+        state: absent
+      notify:
+        - reload apache
+
+    - name: copy the abc.com code
+      copy:
+        src: /etc/ansible/abc-com/index.html
+        dest: /var/www/html/index.html
+        owner: root
+
+  handlers:
+    - name: reload apache
+      service:
+        name: httpd
+        state: reloaded
+
