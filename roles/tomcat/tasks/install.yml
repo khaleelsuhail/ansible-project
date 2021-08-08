@@ -16,6 +16,13 @@
     state: installed
     #    when:
     #  ansible_distribution == "RedHat"
+
+- name: Remove file (delete file)
+  ansible.builtin.file:
+    path: /etc/{{ tomcat }}.tar.gz
+    path: "{{ tomcat}}" 
+    state: absent
+
 - name: To download apache tomcat
   get_url: 
     url: "{{ download_url }}" 
@@ -27,7 +34,7 @@
 - name: To untar and unzip the package
   unarchive:
     src: /etc/{{ tomcat }}.tar.gz
-    dest: /opt/
+    dest: /etc/
     mode: 0755
     remote_src: yes
 
